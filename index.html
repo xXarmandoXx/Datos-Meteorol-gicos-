@@ -89,13 +89,10 @@
         .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
         .header-info h1 { font-size: 1.8rem; font-weight: 700; background: linear-gradient(90deg, #fff, var(--text-muted)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
-        .lora-signal { display: flex; align-items: flex-end; gap: 3px; height: 14px; margin-left: 10px; }
-        .lora-bar { width: 3px; background: var(--accent-blue); border-radius: 2px; animation: signal-pulse 1.5s infinite; }
-        .lora-bar:nth-child(1) { height: 4px; animation-delay: 0s; }
-        .lora-bar:nth-child(2) { height: 7px; animation-delay: 0.2s; }
-        .lora-bar:nth-child(3) { height: 10px; animation-delay: 0.4s; }
-        .lora-bar:nth-child(4) { height: 14px; animation-delay: 0.6s; }
-        @keyframes signal-pulse { 0%,100% { opacity:1; box-shadow: 0 0 5px var(--accent-blue);} 50% { opacity:0.3; box-shadow: none;} }
+        /* Animación WiFi Starlink */
+        .wifi-signal { display: flex; align-items: center; gap: 5px; margin-left: 10px; color: var(--accent-blue); font-size: 1.1rem; }
+        .wifi-signal i { animation: pulse-wifi 2s infinite; }
+        @keyframes pulse-wifi { 0%,100% { opacity: 1; filter: drop-shadow(0 0 5px var(--accent-blue)); } 50% { opacity: 0.4; filter: none; } }
 
         .dashboard-grid {
             display: grid;
@@ -144,24 +141,13 @@
         .hum-bar-wrap { width: 80%; background: rgba(255,255,255,0.1); border-radius: 10px; height: 6px; margin-top: 5px; overflow: hidden; }
         .hum-bar { height: 100%; border-radius: 10px; background: linear-gradient(90deg, var(--accent-blue-dark), var(--accent-blue)); transition: width 1s ease; }
 
-        /* Icono Sol-Nube Stacked */
         .fa-stack { width: 3em; height: 3em; line-height: 3em; }
         @keyframes pulse-sun { 0%, 100% { filter: drop-shadow(0 0 15px #fbbf24); transform: scale(1); } 50% { filter: drop-shadow(0 0 30px #fbbf24); transform: scale(1.05); } }
 
-        /* Lluvia Animada Individual */
-        .anim-rain-container { position: relative; width: 60px; height: 45px; display: flex; justify-content: center; margin: 0 auto 5px auto; }
-        .anim-cloud { font-size: 2.2rem; color: white; animation: float-cloud 3s ease-in-out infinite; position: relative; z-index: 2; filter: drop-shadow(0 0 8px rgba(255,255,255,0.2)); }
-        .anim-drop { position: absolute; font-size: 0.7rem; opacity: 0; animation: fall-drop 1.2s linear infinite; }
-        .drop-1 { left: 15px; top: 20px; animation-delay: 0s; }
-        .drop-2 { left: 30px; top: 20px; animation-delay: 0.4s; }
-        .drop-3 { left: 45px; top: 20px; animation-delay: 0.8s; }
-        
-        @keyframes float-cloud { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
-        @keyframes fall-drop { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(18px); opacity: 0; } }
-
-        .rain-flex { display: flex; justify-content: space-around; align-items: center; width: 100%; height: 100%; }
-        .rain-box { text-align: center; }
-        .rain-divider { width: 1px; height: 60%; background: var(--glass-border); }
+        /* Grid de 4 Lluvias */
+        .rain-grid { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 15px; width: 100%; height: 100%; align-items: center; }
+        .rain-box { text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; background: rgba(255,255,255,0.02); border-radius: 12px; padding: 10px 0; border: 1px solid rgba(255,255,255,0.02); }
+        .rain-box .big-value { font-size: 2.2rem; }
 
         .status-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent-green); box-shadow: 0 0 10px var(--accent-green); animation: pulse 2s infinite; }
         @keyframes pulse { 0% { opacity: 1; box-shadow: 0 0 10px var(--accent-green); } 50% { opacity: 0.4; box-shadow: 0 0 2px var(--accent-green); } 100% { opacity: 1; box-shadow: 0 0 10px var(--accent-green); } }
@@ -172,8 +158,8 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         table { width: 100%; border-collapse: collapse; font-size: 0.95rem; margin-top: 15px; }
-        th { text-align: left; padding: 15px; color: var(--text-muted); border-bottom: 2px solid var(--glass-border); font-weight: 600; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
-        td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.03); color: var(--text-main); transition: var(--transition); }
+        th { text-align: left; padding: 12px; color: var(--text-muted); border-bottom: 2px solid var(--glass-border); font-weight: 600; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
+        td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.03); color: var(--text-main); transition: var(--transition); }
         tr:hover td { background: rgba(255,255,255,0.02); }
         
         .skeleton { background: linear-gradient(90deg, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 75%); background-size: 200% 100%; animation: skeleton-shimmer 1.5s infinite; border-radius: 8px; height: 20px; width: 80%; margin: 0 auto; }
@@ -194,7 +180,7 @@
         .item-json i { color: var(--accent-orange); }
         .item-pdf i { color: var(--accent-pink); }
 
-        /* --- 6. MÓVIL Y TABLET (FLEXBOX ORDENADO) --- */
+        /* --- 6. MÓVIL Y TABLET --- */
         @media (max-width: 1024px) {
             .dashboard-grid { grid-template-columns: repeat(6, 1fr); }
             .w-map { grid-column: span 6; height: 300px; }
@@ -211,7 +197,6 @@
             .sidebar:hover .menu-btn span { display: none; }
             .main-content { padding-bottom: 90px; padding-left: 15px; padding-right: 15px; }
             
-            /* ORDEN MÁGICO PARA CELULARES (Mapa Arriba) */
             .dashboard-grid { display: flex; flex-direction: column; gap: 15px; }
             .w-map { order: 1; height: 250px; }
             .w-status { order: 2; }
@@ -247,11 +232,8 @@
                 <h1 id="page-title">INIFAP Las Margaritas</h1>
                 <p style="color: var(--text-muted); font-size: 0.9rem; display: flex; align-items: center; gap: 8px; margin-top: 5px;">
                     <span class="status-dot" id="header-dot"></span> 
-                    <span>Sensor SHT41 vía LoRa</span>
-                    <span class="lora-signal">
-                        <span class="lora-bar"></span><span class="lora-bar"></span>
-                        <span class="lora-bar"></span><span class="lora-bar"></span>
-                    </span>
+                    <span>Sensor SHT41 vía WiFi (Starlink)</span>
+                    <span class="wifi-signal"><i class="fa-solid fa-wifi"></i></span>
                 </p>
             </div>
             <div style="text-align: right; background: var(--glass-bg); padding: 10px 20px; border-radius: 15px; border: 1px solid var(--glass-border);">
@@ -296,44 +278,41 @@
                         </div>
                         
                         <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 25px; border-top: 1px solid var(--glass-border); padding-top: 10px; width: 100%; text-align: center;">
-                            Paquete LoRa Ref: <span id="msg-id" style="color: white; font-weight: bold;">--</span>
+                            Estación 5 (Enlace Directo Internet)
                         </div>
                     </div>
                 </div>
 
-                <!-- Lluvia Acumulada Dual -->
+                <!-- Lluvia Acumulada 4 Pluviómetros -->
                 <div class="widget w-rain">
                     <div class="widget-header">
                         <span>Precipitación Acumulada</span>
                         <i class="fa-solid fa-cloud-showers-heavy" style="color: var(--text-muted);"></i>
                     </div>
-                    <div class="rain-flex">
+                    <div class="rain-grid">
                         <div class="rain-box">
-                            <div class="anim-rain-container">
-                                <i class="fa-solid fa-cloud anim-cloud"></i>
-                                <i class="fa-solid fa-droplet anim-drop drop-1" style="color: var(--accent-orange);"></i>
-                                <i class="fa-solid fa-droplet anim-drop drop-2" style="color: var(--accent-orange);"></i>
-                                <i class="fa-solid fa-droplet anim-drop drop-3" style="color: var(--accent-orange);"></i>
-                            </div>
-                            <div class="big-value" style="font-size: 3rem;">
+                            <div class="big-value">
                                 <span id="p1-sum-val">0.0</span><span class="unit" style="font-size: 1rem;">mm</span>
                             </div>
-                            <div style="font-size: 0.85rem; color: var(--accent-orange); font-weight: 600; margin-top: 5px;">PLUV 1</div>
+                            <div style="font-size: 0.85rem; color: var(--accent-orange); font-weight: 600;">PLUV 1 (Especial 0.2mm)</div>
                         </div>
-                        
-                        <div class="rain-divider"></div>
-                        
                         <div class="rain-box">
-                            <div class="anim-rain-container">
-                                <i class="fa-solid fa-cloud anim-cloud"></i>
-                                <i class="fa-solid fa-droplet anim-drop drop-1" style="color: var(--accent-purple);"></i>
-                                <i class="fa-solid fa-droplet anim-drop drop-2" style="color: var(--accent-purple);"></i>
-                                <i class="fa-solid fa-droplet anim-drop drop-3" style="color: var(--accent-purple);"></i>
-                            </div>
-                            <div class="big-value" style="font-size: 3rem;">
+                            <div class="big-value">
                                 <span id="p2-sum-val">0.0</span><span class="unit" style="font-size: 1rem;">mm</span>
                             </div>
-                            <div style="font-size: 0.85rem; color: var(--accent-purple); font-weight: 600; margin-top: 5px;">PLUV 2</div>
+                            <div style="font-size: 0.85rem; color: var(--accent-purple); font-weight: 600;">PLUV 2</div>
+                        </div>
+                        <div class="rain-box">
+                            <div class="big-value">
+                                <span id="p3-sum-val">0.0</span><span class="unit" style="font-size: 1rem;">mm</span>
+                            </div>
+                            <div style="font-size: 0.85rem; color: var(--accent-green); font-weight: 600;">PLUV 3</div>
+                        </div>
+                        <div class="rain-box">
+                            <div class="big-value">
+                                <span id="p4-sum-val">0.0</span><span class="unit" style="font-size: 1rem;">mm</span>
+                            </div>
+                            <div style="font-size: 0.85rem; color: var(--accent-blue); font-weight: 600;">PLUV 4</div>
                         </div>
                     </div>
                 </div>
@@ -437,7 +416,7 @@
                     </div>
                 </div>
 
-                <!-- NUEVO WIDGET: Humedad Vectorial 4 Bloques y Flecha Clásica -->
+                <!-- Humedad Vectorial -->
                 <div class="widget w-gauge">
                     <div class="widget-header">Humedad Relativa</div>
                     <div style="display: flex; flex-direction: column; align-items: center; justify-content: space-between; height: 100%; padding-top: 10px;">
@@ -468,7 +447,7 @@
                             </g>
                         </svg>
                         
-                        <!-- Texto del Porcentaje Abajo (Acomodado sin encimarse) -->
+                        <!-- Texto del Porcentaje Abajo -->
                         <div id="hum-custom-val" style="font-size: 2.2rem; font-weight: 800; color: white; line-height: 1; margin-bottom: 5px; text-shadow: 0 2px 5px rgba(0,0,0,0.5);">--%</div>
 
                     </div>
@@ -543,11 +522,13 @@
                             <th>Hum (%)</th>
                             <th>Pluv 1 (mm)</th>
                             <th>Pluv 2 (mm)</th>
+                            <th>Pluv 3 (mm)</th>
+                            <th>Pluv 4 (mm)</th>
                             <th>Estado SD</th>
                         </tr>
                     </thead>
                     <tbody id="history-table-body">
-                        <tr><td colspan="6" style="padding: 25px;"><div class="skeleton"></div></td></tr>
+                        <tr><td colspan="8" style="padding: 25px;"><div class="skeleton"></div></td></tr>
                     </tbody>
                 </table>
             </div>
@@ -563,7 +544,7 @@
                 </div>
                 <div style="padding: 15px 0; border-bottom: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center;">
                     <span style="display: flex; align-items: center; gap: 10px;"><i class="fa-solid fa-microchip"></i> Microcontrolador:</span>
-                    <span style="color: var(--text-main); font-weight: 500;">Heltec LoRa V3 (ESP32)</span>
+                    <span style="color: var(--text-main); font-weight: 500;">Heltec V3 (ESP32)</span>
                 </div>
                 <div style="padding: 15px 0; display: flex; justify-content: space-between; align-items: center;">
                     <span style="display: flex; align-items: center; gap: 10px;"><i class="fa-solid fa-temperature-half"></i> Sensor Principal:</span>
@@ -586,11 +567,11 @@
 
     // --- LÓGICA DE COLORES DINÁMICOS ---
     function getTempColor(t) {
-        if(t < 20) return '#38bdf8'; // Azul (Fresco)
-        if(t < 26) return '#34d399'; // Verde (Templado)
-        if(t < 32) return '#fbbf24'; // Amarillo (Cálido)
-        if(t < 36) return '#fb923c'; // Naranja (Caliente)
-        return '#f87171'; // Rojo (Muy Caliente)
+        if(t < 20) return '#38bdf8'; 
+        if(t < 26) return '#34d399'; 
+        if(t < 32) return '#fbbf24'; 
+        if(t < 36) return '#fb923c'; 
+        return '#f87171'; 
     }
 
     function getHumColor(h) {
@@ -633,7 +614,8 @@
         btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Descargando...';
         btn.disabled = true;
 
-        db.ref('/estacion1/historial').once('value').then(snap => {
+        // AQUÍ SE CORRIGIÓ LA RUTA A LA ESTACIÓN 5
+        db.ref('/estacion5/historial').once('value').then(snap => {
             const allData = [];
             snap.forEach(child => { if(child.val().fecha) allData.push(child.val()); });
             if (allData.length === 0) { alert("No hay datos."); btn.innerHTML = originalHTML; btn.disabled = false; return; }
@@ -642,10 +624,10 @@
             const fileName = `INIFAP_Margaritas_${dateStr}`;
 
             if (format === 'csv') {
-                let csvContent = "Fecha,Hora,Temperatura(C),Humedad(%),Pluv1(mm),Pluv2(mm)\n";
+                let csvContent = "Fecha,Hora,Temperatura(C),Humedad(%),Pluv1(mm),Pluv2(mm),Pluv3(mm),Pluv4(mm)\n";
                 allData.forEach(row => {
                     const dt = new Date(row.fecha);
-                    csvContent += `${dt.toLocaleDateString('es-MX')},${dt.toLocaleTimeString('es-MX')},${row.temperatura || 0},${row.humedad || 0},${row.pluv1_mm || 0},${row.pluv2_mm || 0}\n`;
+                    csvContent += `${dt.toLocaleDateString('es-MX')},${dt.toLocaleTimeString('es-MX')},${row.temperatura || 0},${row.humedad || 0},${row.pluv1_mm || 0},${row.pluv2_mm || 0},${row.pluv3_mm || 0},${row.pluv4_mm || 0}\n`;
                 });
                 downloadBlob(csvContent, `${fileName}.csv`, 'text/csv');
             } 
@@ -673,11 +655,11 @@
 
         const tableRows = dataArray.map(r => {
             const dt = new Date(r.fecha);
-            return [dt.toLocaleDateString('es-MX'), dt.toLocaleTimeString('es-MX'), (r.temperatura||0).toString(), (r.humedad||0).toString(), (r.pluv1_mm||0).toString(), (r.pluv2_mm||0).toString()];
+            return [dt.toLocaleDateString('es-MX'), dt.toLocaleTimeString('es-MX'), (r.temperatura||0).toString(), (r.humedad||0).toString(), (r.pluv1_mm||0).toString(), (r.pluv2_mm||0).toString(), (r.pluv3_mm||0).toString(), (r.pluv4_mm||0).toString()];
         });
 
         doc.autoTable({
-            head: [["Fecha", "Hora", "Temp (°C)", "Hum (%)", "Pluv 1 (mm)", "Pluv 2 (mm)"]],
+            head: [["Fecha", "Hora", "Temp (°C)", "Hum (%)", "Pluv 1", "Pluv 2", "Pluv 3", "Pluv 4"]],
             body: tableRows, startY: 35, theme: 'striped',
             headStyles: { fillColor: [56, 189, 248] }, styles: { fontSize: 9 }
         });
@@ -685,13 +667,12 @@
     }
 
     // --- MAPA LEAFLET ---
-    // Zoom ajustado a nivel 6
     const map = L.map('station-map', { zoomControl: false }).setView([20.5, -99.0], 6);
     L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { attribution: '&copy; CARTO', subdomains: 'abcd', maxZoom: 20 }).addTo(map);
     const stationIcon = L.divIcon({ className: 'custom-div-icon', html: "<div style='background-color:var(--accent-blue); width:16px; height:16px; border-radius:50%; box-shadow: 0 0 15px var(--accent-blue); border: 2px solid white;'></div>", iconSize: [16, 16], iconAnchor: [8, 8] });
-    L.marker([19.996, -97.306], {icon: stationIcon}).addTo(map).bindPopup('<b style="color:black;">Estación LoRa Mando</b><br>INIFAP Las Margaritas').openPopup();
+    L.marker([19.996, -97.306], {icon: stationIcon}).addTo(map).bindPopup('<b style="color:black;">Estación 5 (WiFi)</b><br>INIFAP Las Margaritas').openPopup();
 
-    // --- GRÁFICOS CHART.JS (Solo Líneas Historial) ---
+    // --- GRÁFICOS CHART.JS ---
     Chart.defaults.color = '#94a3b8';
     Chart.defaults.font.family = 'Outfit';
 
@@ -712,10 +693,11 @@
 
     let currentDayStamp = new Date().setHours(0,0,0,0);
     
-    // Calcular Datos Diarios (Lluvia, Max/Min Temp/Hum)
+    // Calcular Datos Diarios
     function calcularDatosDiarios() {
-        db.ref('/estacion1/historial').orderByChild('fecha').startAt(currentDayStamp).on('value', snap => {
-            let sP1 = 0, sP2 = 0;
+        // AQUÍ TAMBIÉN SE CORRIGIÓ LA RUTA
+        db.ref('/estacion5/historial').orderByChild('fecha').startAt(currentDayStamp).on('value', snap => {
+            let sP1 = 0, sP2 = 0, sP3 = 0, sP4 = 0;
             let temps = [], hums = [];
             let maxT = -Infinity, minT = Infinity;
             let maxH = -Infinity, minH = Infinity;
@@ -726,6 +708,8 @@
                 const v = child.val();
                 if(v.pluv1_mm) sP1 += parseFloat(v.pluv1_mm);
                 if(v.pluv2_mm) sP2 += parseFloat(v.pluv2_mm);
+                if(v.pluv3_mm) sP3 += parseFloat(v.pluv3_mm);
+                if(v.pluv4_mm) sP4 += parseFloat(v.pluv4_mm);
 
                 if(v.temperatura !== undefined && v.fecha) {
                     const t = parseFloat(v.temperatura);
@@ -743,6 +727,8 @@
 
             document.getElementById('p1-sum-val').innerText = sP1.toFixed(1);
             document.getElementById('p2-sum-val').innerText = sP2.toFixed(1);
+            document.getElementById('p3-sum-val').innerText = sP3.toFixed(1);
+            document.getElementById('p4-sum-val').innerText = sP4.toFixed(1);
 
             if(temps.length > 0) {
                 const avgT = (temps.reduce((a, b) => a + b, 0) / temps.length).toFixed(1);
@@ -768,11 +754,11 @@
         if(currentDayStamp !== todayStamp) { currentDayStamp = todayStamp; calcularDatosDiarios(); }
     }, 60000);
 
-    // Listener Principal en Tiempo Real
-    db.ref('/estacion1/historial').limitToLast(30).on('value', snap => {
+    // Listener Principal en Tiempo Real (AQUÍ TAMBIÉN SE CORRIGIÓ LA RUTA)
+    db.ref('/estacion5/historial').limitToLast(30).on('value', snap => {
         let labels = [], dTemp = [], dHum = [];
         let tableRowsHTML = "";
-        let lastT = 0, lastH = 0, lastId = "--", lastSD = 1;
+        let lastT = 0, lastH = 0, lastSD = 1;
 
         snap.forEach(child => {
             const val = child.val();
@@ -784,10 +770,12 @@
                 const hum = val.humedad !== undefined ? parseFloat(val.humedad).toFixed(0) : 0;
                 const p1 = val.pluv1_mm !== undefined ? parseFloat(val.pluv1_mm).toFixed(1) : 0;
                 const p2 = val.pluv2_mm !== undefined ? parseFloat(val.pluv2_mm).toFixed(1) : 0;
+                const p3 = val.pluv3_mm !== undefined ? parseFloat(val.pluv3_mm).toFixed(1) : 0;
+                const p4 = val.pluv4_mm !== undefined ? parseFloat(val.pluv4_mm).toFixed(1) : 0;
                 const sd = val.estado_sd !== undefined ? val.estado_sd : 1;
 
                 dTemp.push(temp); dHum.push(hum);
-                lastT = temp; lastH = hum; lastId = val.id_mensaje || "--"; lastSD = sd;
+                lastT = temp; lastH = hum; lastSD = sd;
 
                 let sdBadge = sd === 1 ? `<span style="color:var(--accent-green);"><i class="fa-solid fa-check"></i> OK</span>` : `<span style="color:var(--accent-pink);"><i class="fa-solid fa-xmark"></i> Falla</span>`;
                 
@@ -797,12 +785,14 @@
                     <td style="color:var(--accent-blue); font-weight:bold;">${hum}%</td>
                     <td style="color:var(--accent-orange);">${p1}</td>
                     <td style="color:var(--accent-purple);">${p2}</td>
+                    <td style="color:var(--accent-green);">${p3}</td>
+                    <td style="color:var(--accent-blue);">${p4}</td>
                     <td>${sdBadge}</td>
                 </tr>` + tableRowsHTML;
             }
         });
 
-        if(tableRowsHTML === "") tableRowsHTML = "<tr><td colspan='6' style='text-align:center;'>No hay datos recientes.</td></tr>";
+        if(tableRowsHTML === "") tableRowsHTML = "<tr><td colspan='8' style='text-align:center;'>No hay datos recientes.</td></tr>";
         document.getElementById('history-table-body').innerHTML = tableRowsHTML;
 
         // --- ACTUALIZACIONES UI DINÁMICA ---
@@ -812,9 +802,8 @@
         document.getElementById('temp-main').innerText = lastT;
         document.getElementById('hum-main').innerText = lastH;
         document.getElementById('hum-bar').style.width = lastH + '%';
-        document.getElementById('msg-id').innerText = lastId;
 
-        // Ícono Dinámico de Estado Actual (Sol Amarillo / Nube Blanca)
+        // Ícono Dinámico de Estado Actual
         const iconContainer = document.getElementById('weather-icon-container');
         if(lastT < 25) {
             iconContainer.innerHTML = `<i class="fa-solid fa-cloud" style="color: white; font-size: 3.5rem; filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));"></i>`;
@@ -829,17 +818,17 @@
             iconContainer.innerHTML = `<i class="fa-solid fa-sun" style="color: #fbbf24; font-size: 3.5rem; animation: pulse-sun 2s infinite;"></i>`;
         }
 
-        // SVG Termómetro Custom (0 a 50°C escala)
+        // SVG Termómetro Custom
         document.getElementById('thermo-val-text').innerText = lastT + "°";
         const tempPct = Math.min(Math.max(lastT, 0), 50) / 50; 
         const tempY = 110 - (tempPct * 90); 
         document.getElementById('thermo-liquid').style.y = tempY + 'px';
         document.getElementById('thermo-liquid').style.height = (150 - tempY) + 'px';
 
-        // NUEVO: SVG Aguja Clásica Humedad (0 a 100%) - Rotación y Color Dinámico
+        // Aguja Clásica Humedad
         document.getElementById('hum-custom-val').innerText = lastH + "%";
         const humPct = Math.min(Math.max(lastH, 0), 100) / 100;
-        const needleAngle = (humPct * 180) - 90; // Rotación de -90 a 90 grados
+        const needleAngle = (humPct * 180) - 90; 
         
         document.getElementById('hum-needle').style.transform = `rotate(${needleAngle}deg)`;
         document.getElementById('hum-needle-path').style.fill = colorH;
