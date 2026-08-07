@@ -294,7 +294,7 @@
                             <div class="big-value">
                                 <span id="p1-sum-val">0.0</span><span class="unit" style="font-size: 1rem;">mm</span>
                             </div>
-                            <div style="font-size: 0.85rem; color: var(--accent-orange); font-weight: 600;">PLUV 1 (Especial 0.2mm)</div>
+                            <div style="font-size: 0.85rem; color: var(--accent-orange); font-weight: 600;">PLUV 1</div>
                         </div>
                         <div class="rain-box">
                             <div class="big-value">
@@ -614,7 +614,6 @@
         btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Descargando...';
         btn.disabled = true;
 
-        // AQUÍ SE CORRIGIÓ LA RUTA A LA ESTACIÓN 5
         db.ref('/estacion5/historial').once('value').then(snap => {
             const allData = [];
             snap.forEach(child => { if(child.val().fecha) allData.push(child.val()); });
@@ -695,7 +694,6 @@
     
     // Calcular Datos Diarios
     function calcularDatosDiarios() {
-        // AQUÍ TAMBIÉN SE CORRIGIÓ LA RUTA
         db.ref('/estacion5/historial').orderByChild('fecha').startAt(currentDayStamp).on('value', snap => {
             let sP1 = 0, sP2 = 0, sP3 = 0, sP4 = 0;
             let temps = [], hums = [];
@@ -754,7 +752,7 @@
         if(currentDayStamp !== todayStamp) { currentDayStamp = todayStamp; calcularDatosDiarios(); }
     }, 60000);
 
-    // Listener Principal en Tiempo Real (AQUÍ TAMBIÉN SE CORRIGIÓ LA RUTA)
+    // Listener Principal en Tiempo Real
     db.ref('/estacion5/historial').limitToLast(30).on('value', snap => {
         let labels = [], dTemp = [], dHum = [];
         let tableRowsHTML = "";
