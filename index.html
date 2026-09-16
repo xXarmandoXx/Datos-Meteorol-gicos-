@@ -667,7 +667,7 @@
 
     // --- MAPA LEAFLET ---
     const map = L.map('station-map', { zoomControl: false }).setView([20.5, -99.0], 6);
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { attribution: '&copy; CARTO', subdomains: 'abcd', maxZoom: 20 }).addTo(map);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png?key=cb1_3mmt_1_a4e24b07bf179fbf3ba93de3', { attribution: '&copy; CARTO', subdomains: 'abcd', maxZoom: 20 }).addTo(map);
     const stationIcon = L.divIcon({ className: 'custom-div-icon', html: "<div style='background-color:var(--accent-blue); width:16px; height:16px; border-radius:50%; box-shadow: 0 0 15px var(--accent-blue); border: 2px solid white;'></div>", iconSize: [16, 16], iconAnchor: [8, 8] });
     L.marker([19.996, -97.306], {icon: stationIcon}).addTo(map).bindPopup('<b style="color:black;">Estación 5 (WiFi)</b><br>INIFAP Las Margaritas').openPopup();
 
