@@ -133,7 +133,8 @@
         .badge-na { background: rgba(255,255,255,0.1); padding: 3px 8px; border-radius: 6px; font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
 
         /* --- 4. COMPONENTES Y ANIMACIONES --- */
-        .widget-header { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 10px; flex-wrap: wrap; gap: 10px; }
+        .widget-header { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 10px; gap: 10px; }
+        .w-search .widget-header { flex-wrap: wrap; }
         
         #station-map { width: 100%; height: 100%; border-radius: 20px; z-index: 1; }
         
@@ -183,8 +184,8 @@
         .skeleton { background: linear-gradient(90deg, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 75%); background-size: 200% 100%; animation: skeleton-shimmer 1.5s infinite; border-radius: 8px; height: 20px; width: 80%; margin: 0 auto; }
         @keyframes skeleton-shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
-        .dropdown-wrapper { position: relative; display: inline-block; }
-        .btn-action { background: linear-gradient(135deg, var(--accent-blue), #2563eb); border: none; padding: 10px 20px; border-radius: 10px; color: white; font-family: 'Outfit'; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: var(--transition); box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3); }
+        .dropdown-wrapper { position: relative; display: inline-block; margin-left: auto; flex-shrink: 0; }
+        .btn-action { background: linear-gradient(135deg, var(--accent-blue), #2563eb); border: none; padding: 10px 20px; border-radius: 10px; color: white; font-family: 'Outfit'; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: var(--transition); box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3); white-space: nowrap; }
         .btn-action:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(56, 189, 248, 0.5); }
         .btn-action:disabled { opacity: 0.7; cursor: not-allowed; }
         
@@ -228,6 +229,7 @@
             .big-value { font-size: 3.5rem; }
             .search-controls { width: 100%; justify-content: space-between; }
             .date-picker-custom { flex-grow: 1; }
+            .btn-action { padding: 8px 14px; font-size: 0.85rem; }
         }
     </style>
 </head>
@@ -493,7 +495,7 @@
                     <div style="font-size: 0.9rem; font-weight: bold; color: var(--accent-disabled); margin-top: 15px;">N/A W/m²</div>
                 </div>
 
-                <!-- NUEVO WIDGET INTERACTIVO: CONSULTA HISTÓRICA POR DÍA -->
+                <!-- WIDGET INTERACTIVO: CONSULTA HISTÓRICA POR DÍA -->
                 <div class="widget w-search">
                     <div class="widget-header">
                         <span><i class="fa-solid fa-calendar-check" style="color: var(--accent-blue); margin-right: 6px;"></i> Consulta Rápida por Día</span>
@@ -664,7 +666,7 @@
                 return;
             }
 
-            // MEJORA 1: Invertir el orden para que el dato más reciente aparezca en la primera fila (hasta arriba)
+            // Ordenar del más reciente al más antiguo (el último dato aparece hasta arriba)
             allData.sort((a, b) => b.fecha - a.fecha);
 
             const dateStr = new Date().toISOString().split('T')[0];
@@ -923,7 +925,7 @@
         }
     });
 
-    // --- MEJORA 2: BÚSQUEDA INTERACTIVA POR DÍA ---
+    // --- BÚSQUEDA INTERACTIVA POR DÍA ---
     function seleccionarDiaRapido(offsetDias) {
         const target = new Date();
         target.setDate(target.getDate() + offsetDias);
@@ -999,7 +1001,9 @@
 
               const avgT = (temps.reduce((a, b) => a + b, 0) / temps.length).toFixed(1);
               const avgH = (hums.reduce((a, b) => a + b, 0) / hums.length).toFixed(0);
-              const promLluvia = ((sP1 + sP2 + sP3 + sP4) / 4).toFixed(1);
+              
+              // Promedio calculado únicamente con PLUV 1 y PLUV 2
+              const promLluvia = ((sP1 + sP2) / 2).toFixed(1);
 
               resultsDiv.innerHTML = `
                   <!-- TARJETA TEMPERATURA -->
@@ -1058,11 +1062,11 @@
                       </div>
                   </div>
 
-                  <!-- TARJETA PRECIPITACIÓN (COLORES SINCRONIZADOS CON TU DASHBOARD) -->
+                  <!-- TARJETA PRECIPITACIÓN (PROMEDIO SOLO PLUV 1 Y 2) -->
                   <div class="search-card">
                       <div class="search-card-title">
                           <span><i class="fa-solid fa-cloud-showers-heavy" style="color: var(--accent-blue);"></i> Lluvia Acumulada</span>
-                          <span style="font-size: 0.75rem; color: var(--accent-blue); font-weight: 600;">Prom: ${promLluvia} mm</span>
+                          <span style="font-size: 0.75rem; color: var(--accent-blue); font-weight: 600;">Prom (P1-P2): ${promLluvia} mm</span>
                       </div>
                       <div class="rain-pills">
                           <div class="rain-pill">
